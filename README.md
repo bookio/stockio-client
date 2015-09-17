@@ -1,1 +1,1 @@
-# stockio-client
+# eventio-client
