@@ -150,7 +150,7 @@ var HighCharts = React.createClass({
 
 
 
-var HighStock = React.createClass({
+var HighStockXX = React.createClass({
 	
 	componentDidMount() {
 		var self = this;
@@ -158,13 +158,12 @@ var HighStock = React.createClass({
 
 		console.log('fetching quotes');
 
-		var request = httpRequest('GET', 'http://localhost:5000/quotes/' + this.props.symbol);
+		//var request = httpRequest('GET', 'http://localhost:5000/quotes/' + this.props.symbol);
+		var request = httpRequest('GET', 'http://stockio-node.herokuapp.com/quotes/' + this.props.symbol);
 		
 		request.done(function(data){
 
 			var quotes = [];
-			
-			console.log('got data', data.length);
 			
 			data.quotes.forEach(function(item) {
 				quotes.push([new Date(item.date).valueOf(), parseFloat(item.close)]);
@@ -179,16 +178,16 @@ var HighStock = React.createClass({
 	
 	
 	            rangeSelector : {
-	                selected : 5,
+	                selected : 4,
 					inputEnabled: false
 	            },
 	
 	            title : {
-	                text : data.name
+	                text : self.props.title
 	            },
 	
 	            series : [{
-	                name : data.symbol,
+	                name : self.props.symbol,
 	                data : quotes,
 	                tooltip: {
 	                    valueDecimals: 2
@@ -208,7 +207,7 @@ var HighStock = React.createClass({
 	}
 });
  
-var HighStockX = React.createClass({
+var HighStock = React.createClass({
 	
 	componentDidMount() {
 		var self = this;
@@ -251,7 +250,7 @@ var HighStockX = React.createClass({
 	
 	
 	            rangeSelector : {
-	                selected : 5,
+	                selected : 4,
 					inputEnabled: false
 	            },
 	
@@ -291,29 +290,38 @@ module.exports = React.createClass({
 	render: function () {
 		
 
+		var stocks = [
+	
+
+			{ 'name':'AT&T', 'symbol':'T' },
+			{ 'name':'Ares Capital', 'symbol':'ARCC' },
+			{ 'name':'Castellum', 'symbol':'CAST.ST' },
+			{ 'name':'H&M', 'symbol':'HM-B.ST' },
+			{ 'name':'NCC', 'symbol':'NCC-B.ST' },
+			{ 'name':'Industrivärlden', 'symbol':'INDU-C.ST' },
+			{ 'name':'Pfizer', 'symbol':'PFE' },
+			{ 'name':'SHB', 'symbol':'SHB-B.ST' },
+
+			{ 'name':'Guld',  'symbol':'GOLD' },
+
+			{ 'name':'OMX Index',  'symbol':'^OMX' }	
+		];
+
+
+		var children = stocks.map(function(stock) {
+			return (
+				<Row key={stock.symbol}>
+					<Col md={12}>
+						<HighStock key={stock.symbol} title={stock.name} symbol={stock.symbol}/>
+					</Col>
+				</Row>
+			);
+		});
+
 		
 		return (
 			<Grid>
-				<Row>
-					<Col md={12}>
-						<HighStock title='H&M' symbol='HM-B.ST'/>
-					</Col>
-				</Row>
-				<Row>
-					<Col md={12}>
-						<HighStock title='OMX ' symbol='^OMX'/>
-					</Col>
-				</Row>
-				<Row>
-					<Col md={12}>
-						<HighStock title='OMX ' symbol='SHB-B.ST'/>
-					</Col>
-				</Row>
-				<Row>
-					<Col md={12}>
-						<HighStock title='...' symbol='GOLD'/>
-					</Col>
-				</Row>
+				{children}
 			</Grid>
 			
 		);

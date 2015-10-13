@@ -16,16 +16,6 @@ let App = React.createClass({
 	render() {
 		return (
 			<div >
-				<Navbar  brand='stockio.com' toggleNavKey={0} style={{borderRadius:'0px'}}>
-				
-					<CollapsibleNav eventKey={0}>
-						<Nav navbar right>
-							<NavItem eventKey={1} href='#/test'>Test</NavItem>
-						</Nav>
-					</CollapsibleNav>
-				</Navbar>
-			
-			
 				<div style={{}}>
 					<RouteHandler/>
 				</div>
