@@ -150,7 +150,7 @@ var HighCharts = React.createClass({
 
 
 
-var HighStockXX = React.createClass({
+var HighStock = React.createClass({
 	
 	componentDidMount() {
 		var self = this;
@@ -165,8 +165,8 @@ var HighStockXX = React.createClass({
 
 			var quotes = [];
 			
-			data.quotes.forEach(function(item) {
-				quotes.push([new Date(item.date).valueOf(), parseFloat(item.close)]);
+			data.forEach(function(item) {
+				quotes.push([new Date(item.date).valueOf(), parseFloat(item.quote)]);
 			});
 			/*
 			quotes.sort(function(a, b){
@@ -207,7 +207,7 @@ var HighStockXX = React.createClass({
 	}
 });
  
-var HighStock = React.createClass({
+var HighStockXX = React.createClass({
 	
 	componentDidMount() {
 		var self = this;
@@ -306,7 +306,6 @@ module.exports = React.createClass({
 
 			{ 'name':'OMX Index',  'symbol':'^OMX' }	
 		];
-
 
 		var children = stocks.map(function(stock) {
 			return (
